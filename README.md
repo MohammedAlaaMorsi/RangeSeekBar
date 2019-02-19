@@ -1,6 +1,6 @@
 # RangeSeekBar
 Android Range Seekbar library 
-[![](https://jitpack.io/v/Mohammed-Alaa/GifLoading.svg)](https://jitpack.io/#Mohammed-Alaa/RageSeekBar)
+[![](https://jitpack.io/v/Mohammed-Alaa/RageSeekBar.svg)](https://jitpack.io/#Mohammed-Alaa/RageSeekBar)
 [![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)  
 
 ## Usage
@@ -65,7 +65,6 @@ Reference the View in Java code.
 Get Value
 ```java
        rangeSeekbar.getValue();
-```
 ```
   ![](range_seekbar.gif)
   
