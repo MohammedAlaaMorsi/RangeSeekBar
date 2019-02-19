@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RangeSeekBarView">
+        <attr name="minValue" format="integer|dimension"/>
+        <attr name="maxValue" format="integer|dimension"/>
+        <attr name="currentValue" format="integer|dimension"/>
+        <attr name="barHeight" format="dimension" />
+        <attr name="circleRadius" format="dimension" />
+        <attr name="circleTextSize" format="dimension" />
+        <attr name="circleTextColor" format="color" />
+        <attr name="baseColor" format="color" />
+        <attr name="fillColor" format="color" />
+    </declare-styleable>
+
+</resources>

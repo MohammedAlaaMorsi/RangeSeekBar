@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="value_bar_padding_top">14dp</dimen>
+    <dimen name="value_bar_padding_horizontal">20dp</dimen>
+    <dimen name="value_bar_barHeight">15dp</dimen>
+
+    <dimen name="value_bar_circleRadius">15dp</dimen>
+    <dimen name="value_bar_spaceAfterBar">12dp</dimen>
+
+    <dimen name="circleTextSize">16sp</dimen>
+    <dimen name="labelTextSize">14sp</dimen>
+    <dimen name="maxValueTextSize">25sp</dimen>
+    <dimen name="value_bar_circleTextSize">14sp</dimen>
+    <dimen name="value_bar_labelTextSize">16sp</dimen>
+    <dimen name="value_bar_maxValueTextSize">18sp</dimen>
+
+
+
+</resources>
