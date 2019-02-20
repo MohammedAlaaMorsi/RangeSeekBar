@@ -25,7 +25,7 @@ Include the library as a local library project or add the dependency in your bui
 
 ```groovy
 dependencies {
-    implementation 'com.github.Mohammed-Alaa:RageSeekBar:1.0.0'
+    implementation 'com.github.Mohammed-Alaa:RangeSeekBar:1.0.0'
 }
 ```	
 
@@ -35,6 +35,7 @@ Add the following xml to your layout file.
 
 ```xml
 <com.mohammedalaa.seekbar.RangeSeekBarView
+        android:padding="8dp"
         android:id="@+id/range_seekbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"     
