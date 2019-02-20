@@ -27,6 +27,7 @@
         app:fillColor="@color/red"
         app:currentValue="60"
         app:minValue="20"
+        app:stepValue="15"
         app:maxValue="150"
         />
 

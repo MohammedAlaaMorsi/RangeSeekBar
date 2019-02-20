@@ -20,6 +20,7 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
     private int currentValue = 0;
     private int minValue = 0;
     private float valueToDraw;
+    private int step=0;
 
     private int barHeight;
     private int circleRadius;
@@ -50,6 +51,9 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
         setBackgroundColor(Color.TRANSPARENT);
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.RangeSeekBarView, 0, 0);
 
+        if (typedArray.hasValue(R.styleable.RangeSeekBarView_stepValue)) {
+            step = typedArray.getInt(R.styleable.RangeSeekBarView_stepValue, 0);
+        }
         if (typedArray.hasValue(R.styleable.RangeSeekBarView_minValue)) {
             minValue = typedArray.getInt(R.styleable.RangeSeekBarView_minValue, 0);
         }
@@ -79,13 +83,14 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
         if (typedArray.hasValue(R.styleable.RangeSeekBarView_fillColor)) {
             fillColor = typedArray.getColor(R.styleable.RangeSeekBarView_fillColor, Color.BLACK);
         }
-        this.setMax(getMaxValue() - getMinValue());
+        this.setMax(100);
 
         if (currentValue < minValue || currentValue > maxValue) {
             throw new RuntimeException("Value must be in range   (min <= value <= max) ");
         }
-        int progress = (currentValue - minValue);
-        this.setProgress(progress);
+        //int progress = (currentValue - minValue);
+        //this.setProgress(progress);
+        this.setProgress(calculateProgress(currentValue, minValue, maxValue));
         setValue(currentValue);
         typedArray.recycle();
 
@@ -111,7 +116,9 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
         requestLayout();
     }
 
-
+    private int calculateProgress(int value, int MIN, int MAX) {
+        return (100 * (value - MIN)) / (MAX - MIN) ;
+    }
     public void setMinValue(int value) {
         this.minValue = value;
         invalidate();
@@ -219,8 +226,10 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        int value = minValue + (progress);
-        setValue(value);
+        //int value = minValue + (progress);
+        double value = Math.round((progress * (getMaxValue() - getMinValue())) / 100);
+        int displayValue = (((int) value + getMinValue()) / step) * step;
+        setValue(displayValue);
     }
 
     @Override

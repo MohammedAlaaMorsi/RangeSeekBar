@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="RangeSeekBarView">
+        <attr name="stepValue" format="integer|dimension"/>
         <attr name="minValue" format="integer|dimension"/>
         <attr name="maxValue" format="integer|dimension"/>
         <attr name="currentValue" format="integer|dimension"/>
