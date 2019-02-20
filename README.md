@@ -1,6 +1,6 @@
 # RangeSeekBar
 Android Range Seekbar library 
-[![](https://jitpack.io/v/Mohammed-Alaa/GifLoading.svg)](https://jitpack.io/#Mohammed-Alaa/RageSeekBar)
+[![](https://jitpack.io/v/Mohammed-Alaa/RangeSeekBar.svg)](https://jitpack.io/#Mohammed-Alaa/RangeSeekBar)
 [![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)  
 
 ## Usage
@@ -25,7 +25,7 @@ Include the library as a local library project or add the dependency in your bui
 
 ```groovy
 dependencies {
-    implementation 'com.github.Mohammed-Alaa:RageSeekBar:1.0.0'
+    implementation 'com.github.Mohammed-Alaa:RangeSeekBar:1.0.0'
 }
 ```	
 
@@ -35,14 +35,10 @@ Add the following xml to your layout file.
 
 ```xml
 <com.mohammedalaa.seekbar.RangeSeekBarView
+        android:padding="8dp"
         android:id="@+id/range_seekbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/value_bar_padding_top"
-        android:paddingStart="@dimen/value_bar_padding_horizontal"
-        android:paddingLeft="@dimen/value_bar_padding_horizontal"
-        android:paddingEnd="@dimen/value_bar_padding_horizontal"
-        android:paddingRight="@dimen/value_bar_padding_horizontal"
+        android:layout_height="wrap_content"     
         app:barHeight="@dimen/value_bar_barHeight"
         app:baseColor="@color/navy"
         app:circleRadius="@dimen/value_bar_circleRadius"
@@ -65,7 +61,6 @@ Reference the View in Java code.
 Get Value
 ```java
        rangeSeekbar.getValue();
-```
 ```
   ![](range_seekbar.gif)
   
