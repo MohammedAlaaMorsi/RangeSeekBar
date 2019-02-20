@@ -88,8 +88,7 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
         if (currentValue < minValue || currentValue > maxValue) {
             throw new RuntimeException("Value must be in range   (min <= value <= max) ");
         }
-        //int progress = (currentValue - minValue);
-        //this.setProgress(progress);
+
         this.setProgress(calculateProgress(currentValue, minValue, maxValue));
         setValue(currentValue);
         typedArray.recycle();
@@ -145,17 +144,13 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
 
 
     private int measureHeight(int measureSpec) {
-
         int size = getPaddingTop() + getPaddingBottom();
         size += Math.max(barHeight, circleRadius * 2);
         return resolveSizeAndState(size, measureSpec, 0);
     }
 
     private int measureWidth(int measureSpec) {
-
         int size = getPaddingLeft() + getPaddingRight();
-        Rect bounds = new Rect();
-        size += bounds.width();
         return resolveSizeAndState(size, measureSpec, 0);
     }
 
@@ -171,7 +166,7 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
 
 
     private void drawBar(Canvas canvas) {
-        float barLength = getWidth() - getPaddingRight() - getPaddingLeft() - circleRadius;
+        float barLength = getWidth() - getPaddingRight() - getPaddingLeft();
 
         float barCenter = getBarCenter();
 
@@ -203,7 +198,7 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
 
     private float getBarCenter() {
         float barCenter = (getHeight() - getPaddingTop() - getPaddingBottom()) / 2;
-        barCenter += getPaddingTop() + .1f * getHeight(); //move it down a bit
+        //barCenter += getPaddingTop() + .1f * getHeight(); //move it down a bit
         return barCenter;
     }
 
