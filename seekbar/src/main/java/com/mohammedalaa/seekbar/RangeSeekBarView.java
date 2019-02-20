@@ -1,6 +1,5 @@
 package com.mohammedalaa.seekbar;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -20,7 +19,7 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
     private int currentValue = 0;
     private int minValue = 0;
     private float valueToDraw;
-    private int step=0;
+    private int step = 0;
 
     private int barHeight;
     private int circleRadius;
@@ -116,8 +115,9 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
     }
 
     private int calculateProgress(int value, int MIN, int MAX) {
-        return (100 * (value - MIN)) / (MAX - MIN) ;
+        return (100 * (value - MIN)) / (MAX - MIN);
     }
+
     public void setMinValue(int value) {
         this.minValue = value;
         invalidate();
@@ -133,6 +133,9 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
     }
 
     public void setValue(int newValue) {
+        if (newValue < minValue || newValue > maxValue) {
+            newValue = currentValue;
+        }
         currentValue = newValue;
         valueToDraw = currentValue;
         invalidate();
