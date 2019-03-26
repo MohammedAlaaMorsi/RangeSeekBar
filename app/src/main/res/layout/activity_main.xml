@@ -7,10 +7,6 @@
     tools:context=".MainActivity">
 
     <com.mohammedalaa.seekbar.RangeSeekBarView
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/range_seekbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,24 +16,26 @@
         app:circleTextColor="@color/white"
         app:circleTextSize="@dimen/value_bar_circleTextSize"
         app:fillColor="@color/red"
-        app:currentValue="60"
-        app:minValue="15"
-        app:stepValue="5"
-        app:maxValue="150"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:currentValue="20"
+        app:maxValue="100"
+        app:minValue="0"
+        app:stepValue="1" />
 
 
     <Button
-        android:text="Get Value"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="45dp"
-        android:onClick="getValue"
-        app:layout_constraintTop_toBottomOf="@id/range_seekbar"
         android:id="@+id/btn_get_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        android:layout_marginTop="45dp"
+        android:onClick="getValue"
+        android:text="Get Value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/range_seekbar" />
 
 
 </android.support.constraint.ConstraintLayout>

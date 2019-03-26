@@ -11,15 +11,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.SeekBar;
 
 public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeekBarChangeListener {
 
-    private int maxValue = 0;
-    private int currentValue = 0;
-    private int minValue = 0;
+    private int maxValue;
+    private static int currentValue;
+    private int minValue;
     private float valueToDraw;
-    private int step = 0;
+    private int step;
 
     private int barHeight;
     private int circleRadius;
@@ -40,6 +41,11 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
 
     public RangeSeekBarView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(context, attrs);
+    }
+
+    public RangeSeekBarView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
         init(context, attrs);
     }
 
@@ -82,14 +88,19 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
         if (typedArray.hasValue(R.styleable.RangeSeekBarView_fillColor)) {
             fillColor = typedArray.getColor(R.styleable.RangeSeekBarView_fillColor, Color.BLACK);
         }
+
         this.setMax(100);
 
         if (currentValue < minValue || currentValue > maxValue) {
             throw new RuntimeException("Value must be in range   (min <= value <= max) ");
         }
 
-        this.setProgress(calculateProgress(currentValue, minValue, maxValue));
-        setValue(currentValue);
+        //setValue(currentValue);
+
+        Log.d("CURRENT_VALUE" , ""+getValue());
+
+        //this.setProgress(calculateProgress(currentValue, minValue, maxValue));
+        setIntoProgress();
         typedArray.recycle();
 
         barBasePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -133,18 +144,25 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
     }
 
     public void setValue(int newValue) {
+        /*
         if (newValue < minValue || newValue > maxValue) {
             newValue = currentValue;
         }
+        */
         currentValue = newValue;
         valueToDraw = currentValue;
+        setIntoProgress();
         invalidate();
+    }
+
+
+    private void setIntoProgress(){
+        this.setProgress(calculateProgress(currentValue, minValue, maxValue));
     }
 
     public int getValue() {
         return currentValue;
     }
-
 
     private int measureHeight(int measureSpec) {
         int size = getPaddingTop() + getPaddingBottom();
