@@ -136,7 +136,9 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
         if (newValue < minValue || newValue > maxValue) {
             newValue = currentValue;
         }
-        currentValue = newValue;
+        if(newValue%step==0){
+            currentValue = newValue;
+        }
         valueToDraw = currentValue;
         invalidate();
     }
@@ -182,7 +184,7 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
         canvas.drawRoundRect(rect, halfBarHeight, halfBarHeight, barBasePaint);
 
 
-        float percentFilled = (float) getProgress() / getMax();
+        float percentFilled = (float) calculateProgress((int) valueToDraw,minValue,maxValue) /getMax();
         float fillLength = barLength * percentFilled;
         float fillPosition = left + fillLength;
         RectF fillRect = new RectF(left, top, fillPosition, bottom);
@@ -197,7 +199,6 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
 
         canvas.drawText(valueString, fillPosition, y, currentValuePaint);
     }
-
 
     private float getBarCenter() {
         float barCenter = (getHeight() - getPaddingTop() - getPaddingBottom()) / 2;
