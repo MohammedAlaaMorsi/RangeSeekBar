@@ -20,7 +20,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:currentValue="20"
         app:maxValue="100"
         app:minValue="0"
         app:stepValue="1" />

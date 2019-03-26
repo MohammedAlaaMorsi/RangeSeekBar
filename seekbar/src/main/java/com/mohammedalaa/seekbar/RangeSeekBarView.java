@@ -95,12 +95,18 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
             throw new RuntimeException("Value must be in range   (min <= value <= max) ");
         }
 
-        //setValue(currentValue);
+        setValue(currentValue);
 
-        Log.d("CURRENT_VALUE" , ""+getValue());
+        Log.d("CURRENT_VALUE", "" + getValue());
 
         //this.setProgress(calculateProgress(currentValue, minValue, maxValue));
-        setIntoProgress();
+
+        /*
+        if (currentValue != 0) {
+            this.setProgress(calculateProgress(currentValue, minValue, maxValue));
+        }
+        */
+
         typedArray.recycle();
 
         barBasePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -156,7 +162,7 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
     }
 
 
-    private void setIntoProgress(){
+    private void setIntoProgress() {
         this.setProgress(calculateProgress(currentValue, minValue, maxValue));
     }
 
