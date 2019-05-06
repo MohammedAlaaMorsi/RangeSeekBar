@@ -58,6 +58,10 @@ Reference the View in Java code.
 ```java
        RangeSeekBarView rangeSeekbar = (RangeSeekBarView) findViewById(R.id.range_seekbar);
 ```
+Add Animation.
+```java
+       rangeSeekbar.setAnimated(true,3000L);
+```
 Get Value
 ```java
        rangeSeekbar.getValue();
