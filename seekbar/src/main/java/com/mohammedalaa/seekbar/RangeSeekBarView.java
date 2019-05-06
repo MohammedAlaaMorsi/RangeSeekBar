@@ -1,5 +1,6 @@
 package com.mohammedalaa.seekbar;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -32,6 +33,11 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
     private Paint barFillPaint;
     private Paint circlePaint;
     private Paint currentValuePaint;
+
+    private boolean animated;
+    private long animationDuration = 3000l;
+    ValueAnimator animation = null;
+
 
 
     public RangeSeekBarView(Context context) {
@@ -133,14 +139,48 @@ public class RangeSeekBarView extends AppCompatSeekBar implements SeekBar.OnSeek
     }
 
     public void setValue(int newValue) {
+
+        int previousValue = getValue();
+
         if (newValue < minValue || newValue > maxValue) {
             newValue = currentValue;
         }
         if(newValue%step==0){
             currentValue = newValue;
         }
-        valueToDraw = currentValue;
+
+        if(animation != null) {
+            animation.cancel();
+        }
+
+        if(animated) {
+            animation = ValueAnimator.ofFloat(previousValue, currentValue);
+            //animationDuration specifies how long it should take to animate the entire graph, so the
+            //actual value to use depends on how much the value needs to change
+            int changeInValue = Math.abs(currentValue - previousValue);
+            long durationToUse = (long) (animationDuration * ((float) changeInValue / (float) maxValue));
+            animation.setDuration(durationToUse);
+
+            animation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    valueToDraw = (float) valueAnimator.getAnimatedValue();
+                    RangeSeekBarView.this.invalidate();
+                }
+            });
+
+            animation.start();
+        } else {
+            valueToDraw = currentValue;
+        }
+
+        //valueToDraw = currentValue;
         invalidate();
+    }
+
+    public void setAnimated(boolean animated,long animationDuration) {
+        this.animated = animated;
+        this.animationDuration=animationDuration;
     }
 
     public int getValue() {
