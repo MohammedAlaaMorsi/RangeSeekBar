@@ -25,7 +25,7 @@ Include the library as a local library project or add the dependency in your bui
 
 ```groovy
 dependencies {
-    implementation 'com.github.Mohammed-Alaa:RangeSeekBar:1.0.3'
+    implementation 'com.github.Mohammed-Alaa:RangeSeekBar:1.0.4'
 }
 ```	
 
@@ -55,17 +55,42 @@ Add the following xml to your layout file.
 
 Reference the View in Java code.
 
-```java
+```kotlin
        RangeSeekBarView rangeSeekbar = (RangeSeekBarView) findViewById(R.id.range_seekbar);
 ```
 Add Animation.
-```java
+```kotlin
        rangeSeekbar.setAnimated(true,3000L);
 ```
-Get Value
-```java
-       rangeSeekbar.getValue();
+
+Set Value
+```kotlin
+     rangeSeekbar.setCurrentValue(50)
 ```
+
+Get Value
+```kotlin
+       rangeSeekbar.getCurrentValue();
+```
+
+Add SeekChangeListener
+```kotlin
+rangeSeekBarView.setOnRangeSeekBarViewChangeListener(object : OnRangeSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: RangeSeekBarView?, progress: Int, fromUser: Boolean) {
+
+            }
+
+            override fun onStartTrackingTouch(seekBar: RangeSeekBarView?) {
+
+            }
+
+            override fun onStopTrackingTouch(seekBar: RangeSeekBarView?) {
+
+            }
+
+        })
+```
+
   ![](range_seekbar.gif)
   
   ## License

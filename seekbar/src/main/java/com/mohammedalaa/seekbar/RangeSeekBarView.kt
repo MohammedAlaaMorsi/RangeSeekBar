@@ -18,6 +18,7 @@ import kotlin.math.roundToInt
 
 class RangeSeekBarView : AppCompatSeekBar, SeekBar.OnSeekBarChangeListener {
 
+
     private var maxValue = 0
     private var currentValue: Int = 0;
 
@@ -41,6 +42,7 @@ class RangeSeekBarView : AppCompatSeekBar, SeekBar.OnSeekBarChangeListener {
     private var animated: Boolean = false
     private var animationDuration = 3000L
     private var animation: ValueAnimator? = null
+    private var mOnRangeSeekBarViewChangeListener: OnRangeSeekBarChangeListener? = null
 
     private val barCenter: Float
         get() = ((height - paddingTop - paddingBottom) / 2).toFloat()
@@ -224,6 +226,27 @@ class RangeSeekBarView : AppCompatSeekBar, SeekBar.OnSeekBarChangeListener {
         canvas.drawText(valueString, fillPosition, y, currentValuePaint!!)
     }
 
+    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+        val calcValue = (progress * (maxValue - minValue) / 100).toFloat().roundToInt().toDouble()
+        val displayValue = (calcValue.toInt() + minValue) / step * step
+        setCurrentValue(displayValue)
+        mOnRangeSeekBarViewChangeListener?.onProgressChanged(this@RangeSeekBarView, displayValue, fromUser)
+    }
+
+    override fun onStopTrackingTouch(seekBar: SeekBar) {
+        mOnRangeSeekBarViewChangeListener?.onStopTrackingTouch(this@RangeSeekBarView)
+
+    }
+
+    override fun onStartTrackingTouch(seekBar: SeekBar) {
+        mOnRangeSeekBarViewChangeListener?.onStartTrackingTouch(this@RangeSeekBarView)
+
+    }
+
+    fun setOnRangeSeekBarViewChangeListener(l: OnRangeSeekBarChangeListener) {
+        mOnRangeSeekBarViewChangeListener = l
+    }
+
 
     override fun onSaveInstanceState(): Parcelable {
         val superState = super.onSaveInstanceState()
@@ -237,20 +260,6 @@ class RangeSeekBarView : AppCompatSeekBar, SeekBar.OnSeekBarChangeListener {
         currentValue = ss.value
         valueToDraw = currentValue.toFloat()
         super.onRestoreInstanceState(ss.superState)
-    }
-
-    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-        val calcValue = (progress * (maxValue - minValue) / 100).toFloat().roundToInt().toDouble()
-        val displayValue = (calcValue.toInt() + minValue) / step * step
-        setCurrentValue(displayValue)
-    }
-
-    override fun onStartTrackingTouch(seekBar: SeekBar) {
-
-    }
-
-    override fun onStopTrackingTouch(seekBar: SeekBar) {
-
     }
 
     private class SavedState : BaseSavedState {
