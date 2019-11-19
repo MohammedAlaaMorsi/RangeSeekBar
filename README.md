@@ -25,7 +25,7 @@ Include the library as a local library project or add the dependency in your bui
 
 ```groovy
 dependencies {
-    implementation 'com.github.Mohammed-Alaa:RangeSeekBar:1.0.4'
+    implementation 'com.github.MohammedAlaaMorsi:RangeSeekBar:1.0.4'
 }
 ```	
 
@@ -53,10 +53,10 @@ Add the following xml to your layout file.
 
 ### Step 4
 
-Reference the View in Java code.
+Reference the View in kotlin code.
 
 ```kotlin
-       RangeSeekBarView rangeSeekbar = (RangeSeekBarView) findViewById(R.id.range_seekbar);
+       val rangeSeekbar = findViewById<RangeSeekBarView>(R.id.range_seekbar);
 ```
 Add Animation.
 ```kotlin
