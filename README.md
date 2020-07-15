@@ -1,8 +1,9 @@
 # RangeSeekBar
 Android Range Seekbar library 
-[![](https://jitpack.io/v/Mohammed-Alaa/RangeSeekBar.svg)](https://jitpack.io/#Mohammed-Alaa/RangeSeekBar)
-[![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)  
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-RangeSeekBar-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7527)
+
+[![](https://jitpack.io/v/Mohammed-Alaa/RangeSeekBar.svg)](https://jitpack.io/#Mohammed-Alaa/RangeSeekBar) [![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-RangeSeekBar-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7527)
+
+
 ## Usage
 
 **For a working implementation of this project see the `app/` folder.**
@@ -56,21 +57,21 @@ Add the following xml to your layout file.
 Reference the View in kotlin code.
 
 ```kotlin
-       val rangeSeekbar = findViewById<RangeSeekBarView>(R.id.range_seekbar);
+val rangeSeekbar = findViewById<RangeSeekBarView>(R.id.range_seekbar);
 ```
 Add Animation.
 ```kotlin
-       rangeSeekbar.setAnimated(true,3000L);
+rangeSeekbar.setAnimated(true,3000L);
 ```
 
 Set Value
 ```kotlin
-     rangeSeekbar.setCurrentValue(50)
+rangeSeekbar.setCurrentValue(50)
 ```
 
 Get Value
 ```kotlin
-       rangeSeekbar.getCurrentValue();
+rangeSeekbar.getCurrentValue();
 ```
 
 Add SeekChangeListener
@@ -90,10 +91,12 @@ rangeSeekBarView.setOnRangeSeekBarViewChangeListener(object : OnRangeSeekBarChan
 
         })
 ```
+# demo 
 
-  ![](range_seekbar.gif)
-  
-  ## License
+![](range_seekbar.gif)
+
+
+# License
 
     Copyright 2019 Mohammmed Alaa
 	Licensed under the Apache License, Version 2.0 (the "License");
