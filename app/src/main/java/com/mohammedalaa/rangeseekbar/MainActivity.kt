@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         rangeSeekBarView = findViewById(R.id.range_seekbar)
-        rangeSeekBarView.setCurrentValue(40)
+        rangeSeekBarView.currentValue=40
         rangeSeekBarView.setAnimated(true, 3000L)
 
         rangeSeekBarView.setOnRangeSeekBarViewChangeListener(object : OnRangeSeekBarChangeListener {
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getValue(view: View) {
-        Toast.makeText(this, rangeSeekBarView.getCurrentValue().toString() + "", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, rangeSeekBarView.currentValue.toString() + "", Toast.LENGTH_SHORT).show()
 
     }
 }

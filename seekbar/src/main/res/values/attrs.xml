@@ -11,6 +11,7 @@
         <attr name="circleTextColor" format="color" />
         <attr name="baseColor" format="color" />
         <attr name="fillColor" format="color" />
+        <attr name="circleFillColor" format="color" />
     </declare-styleable>
 
 </resources>
