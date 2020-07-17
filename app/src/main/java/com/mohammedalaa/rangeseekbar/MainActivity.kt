@@ -22,14 +22,16 @@ class MainActivity : AppCompatActivity() {
 
         rangeSeekBarView.setOnRangeSeekBarViewChangeListener(object : OnRangeSeekBarChangeListener {
             override fun onProgressChanged(seekBar: RangeSeekBarView?, progress: Int, fromUser: Boolean) {
+                Log.e("onChanged",progress.toString())
+            }
+
+            override fun onStartTrackingTouch(seekBar: RangeSeekBarView?,progress:Int) {
+                Log.e("onStart",progress.toString())
 
             }
 
-            override fun onStartTrackingTouch(seekBar: RangeSeekBarView?) {
-
-            }
-
-            override fun onStopTrackingTouch(seekBar: RangeSeekBarView?) {
+            override fun onStopTrackingTouch(seekBar: RangeSeekBarView?,progress:Int) {
+                Log.e("onStop",progress.toString())
 
             }
 

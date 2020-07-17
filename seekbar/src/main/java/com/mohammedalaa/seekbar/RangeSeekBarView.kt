@@ -7,14 +7,14 @@ import android.graphics.*
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
-import android.widget.SeekBar
 import androidx.annotation.ColorInt
 import kotlin.math.roundToInt
 
 
 @SuppressLint("AppCompatCustomView")
-class RangeSeekBarView : SeekBar, SeekBar.OnSeekBarChangeListener {
+class RangeSeekBarView : View {
 
 
     constructor(context: Context) : super(context) {
@@ -32,6 +32,7 @@ class RangeSeekBarView : SeekBar, SeekBar.OnSeekBarChangeListener {
         private const val DEFAULT_CIRCLE_COLOR = Color.GREEN
         private const val DEFAULT_VALUE = 0
         private const val DEFAULT_MAX_VALUE = 100
+        private const val CLICK_ACTION_THRESHOLD = 5
     }
 
 
@@ -42,12 +43,17 @@ class RangeSeekBarView : SeekBar, SeekBar.OnSeekBarChangeListener {
     private var barHeight: Int = 0
     private var circleRadius: Int = 0
     private var circleTextSize: Int = 0
+    private var progress: Int = 0
+    private var defaultPadding: Int = 15
+
 
     private var barBasePaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var barFillPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var circlePaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var valuePaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
+
+    private var direction: Direction = Direction.LEFT_TO_RIGHT
     private var animated: Boolean = false
     private var animationDuration = 3000L
     private var animation: ValueAnimator? = null
@@ -89,12 +95,14 @@ class RangeSeekBarView : SeekBar, SeekBar.OnSeekBarChangeListener {
             invalidate()
         }
 
+    private var isTouchListenerEnabled = true
+
 
     var currentValue: Int = DEFAULT_VALUE
-        set(value: Int) {
+        set(value) {
+            val previousValue = currentValue
             field = value
             var newValue = value
-            val previousValue = currentValue
 
             if (newValue < minValue || newValue > maxValue) {
                 newValue = currentValue
@@ -103,18 +111,20 @@ class RangeSeekBarView : SeekBar, SeekBar.OnSeekBarChangeListener {
                 field = newValue
             }
 
+            mOnRangeSeekBarViewChangeListener?.onProgressChanged(this@RangeSeekBarView, newValue, true);
+
             animation?.cancel()
 
             if (animated) {
                 animation = ValueAnimator.ofFloat(previousValue.toFloat(), currentValue.toFloat())
                 val changeInValue = Math.abs(currentValue - previousValue)
                 val durationToUse = (animationDuration * (changeInValue.toFloat() / maxValue.toFloat())).toLong()
-                animation!!.duration = durationToUse
+                animation?.duration = durationToUse
 
-                animation!!.addUpdateListener { valueAnimator ->
+                animation?.addUpdateListener { valueAnimator ->
                     valueToDraw = valueAnimator.animatedValue as Float
                     mOnRangeSeekBarViewChangeListener?.onProgressChanged(this@RangeSeekBarView, valueToDraw.toInt(), true)
-                    this@RangeSeekBarView.invalidate()
+                    this.invalidate()
                 }
 
                 animation!!.start()
@@ -148,16 +158,11 @@ class RangeSeekBarView : SeekBar, SeekBar.OnSeekBarChangeListener {
 
     private fun setValues() {
         isSaveEnabled = true
-        thumb.mutate().alpha = 0
-        progressDrawable.setColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN);
-        thumb.setColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN);
         setBackgroundColor(Color.TRANSPARENT)
-        max = 100
         if (currentValue < minValue || currentValue > maxValue) {
             throw RuntimeException("Value must be in range   (min <= value <= max) ")
         }
         progress = calculateProgress(currentValue, minValue, maxValue)
-        setOnSeekBarChangeListener(this@RangeSeekBarView)
     }
 
     private fun parseAttr(attrs: AttributeSet?) {
@@ -181,6 +186,7 @@ class RangeSeekBarView : SeekBar, SeekBar.OnSeekBarChangeListener {
 
         if (typedArray.hasValue(R.styleable.RangeSeekBarView_circleRadius)) {
             circleRadius = typedArray.getDimensionPixelSize(R.styleable.RangeSeekBarView_circleRadius, 0)
+            defaultPadding = circleRadius
         }
 
         if (typedArray.hasValue(R.styleable.RangeSeekBarView_circleTextSize)) {
@@ -199,10 +205,19 @@ class RangeSeekBarView : SeekBar, SeekBar.OnSeekBarChangeListener {
         if (typedArray.hasValue(R.styleable.RangeSeekBarView_fillColor)) {
             fillColor = typedArray.getColor(R.styleable.RangeSeekBarView_fillColor, DEFAULT_FILL_COLOR)
         }
+        if (typedArray.hasValue(R.styleable.RangeSeekBarView_orientation)) {
+            direction = Direction.values()[typedArray.getInt(R.styleable.RangeSeekBarView_orientation, 1)]
+        }
+        setPadding(defaultPadding, 0, defaultPadding, 0)
+
         typedArray.recycle()
 
     }
 
+
+    fun setOnRangeSeekBarViewChangeListener(l: OnRangeSeekBarChangeListener) {
+        mOnRangeSeekBarViewChangeListener = l
+    }
 
     private fun calculateProgress(value: Int, MIN: Int, MAX: Int): Int {
         return 100 * (value - MIN) / (MAX - MIN)
@@ -224,12 +239,12 @@ class RangeSeekBarView : SeekBar, SeekBar.OnSeekBarChangeListener {
     private fun measureHeight(measureSpec: Int): Int {
         var size = paddingTop + paddingBottom
         size += Math.max(barHeight, circleRadius * 2)
-        return View.resolveSizeAndState(size, measureSpec, 0)
+        return resolveSizeAndState(size, measureSpec, 0)
     }
 
     private fun measureWidth(measureSpec: Int): Int {
         val size = paddingLeft + paddingRight
-        return View.resolveSizeAndState(size, measureSpec, 0)
+        return resolveSizeAndState(size, measureSpec, 0)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -237,8 +252,24 @@ class RangeSeekBarView : SeekBar, SeekBar.OnSeekBarChangeListener {
     }
 
     override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas);
-        drawBar(canvas)
+        when (direction) {
+            Direction.TOP_TO_BOTTOM -> {
+                super.onDraw(canvas)
+                drawBar(canvas)
+
+            }
+            Direction.LEFT_TO_RIGHT -> {
+
+            }
+            Direction.RIGHT_TO_LEFT -> {
+
+            }
+            Direction.BOTTOM_TO_TOP -> {
+
+            }
+        }
+
+
     }
 
     private fun drawBar(canvas: Canvas) {
@@ -254,7 +285,7 @@ class RangeSeekBarView : SeekBar, SeekBar.OnSeekBarChangeListener {
         canvas.drawRoundRect(rect, halfBarHeight, halfBarHeight, barBasePaint)
 
 
-        val percentFilled = calculateProgress(valueToDraw.toInt(), minValue, maxValue).toFloat() / max
+        val percentFilled = calculateProgress(valueToDraw.toInt(), minValue, maxValue).toFloat() / DEFAULT_MAX_VALUE
         val fillLength = barLength * percentFilled
         val fillPosition = left + fillLength
         val fillRect = RectF(left, top, fillPosition, bottom)
@@ -272,26 +303,13 @@ class RangeSeekBarView : SeekBar, SeekBar.OnSeekBarChangeListener {
 
     }
 
-    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-        val calcValue = (progress * (maxValue - minValue) / 100).toFloat().roundToInt().toDouble()
+
+    private fun upDatePosition(value: Int) {
+        val calcValue = (value * (maxValue - minValue) / 100).toFloat().roundToInt().toDouble()
         val displayValue = (calcValue.toInt() + minValue) / step * step
         currentValue = displayValue
-        mOnRangeSeekBarViewChangeListener?.onProgressChanged(this@RangeSeekBarView, displayValue, fromUser)
     }
 
-    override fun onStopTrackingTouch(seekBar: SeekBar) {
-        mOnRangeSeekBarViewChangeListener?.onStopTrackingTouch(this@RangeSeekBarView)
-
-    }
-
-    override fun onStartTrackingTouch(seekBar: SeekBar) {
-        mOnRangeSeekBarViewChangeListener?.onStartTrackingTouch(this@RangeSeekBarView)
-
-    }
-
-    fun setOnRangeSeekBarViewChangeListener(l: OnRangeSeekBarChangeListener) {
-        mOnRangeSeekBarViewChangeListener = l
-    }
 
     override fun onSaveInstanceState(): Parcelable {
         val superState = super.onSaveInstanceState()
@@ -306,6 +324,52 @@ class RangeSeekBarView : SeekBar, SeekBar.OnSeekBarChangeListener {
         valueToDraw = currentValue.toFloat()
         super.onRestoreInstanceState(ss.superState)
     }
+
+
+    override fun performClick(): Boolean {
+        super.performClick()
+        return true // register it has been handled
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        if (!isTouchListenerEnabled) {
+            return false
+        }
+        val eventAction = event.action
+
+        // you may need the x/y location
+        var x = event.x.toDouble()
+        val canvas_width = (width - paddingStart - paddingEnd).toDouble()
+
+        if (x < 0) {
+            x = 0.0
+        } else if (x > canvas_width) {
+            x = canvas_width
+        }
+        when (eventAction) {
+            MotionEvent.ACTION_DOWN -> {
+                //isUserTouched = true
+                mOnRangeSeekBarViewChangeListener?.onStartTrackingTouch(this@RangeSeekBarView, currentValue)
+
+            }
+            MotionEvent.ACTION_UP -> {
+                //isUserTouched = false
+                val value = (x / canvas_width * 100).toInt()
+                upDatePosition(value)
+                mOnRangeSeekBarViewChangeListener?.onStopTrackingTouch(this@RangeSeekBarView, currentValue)
+
+            }
+            MotionEvent.ACTION_MOVE -> {
+                val value = (x / canvas_width * 100).toInt()
+                upDatePosition(value)
+                mOnRangeSeekBarViewChangeListener?.onProgressChanged(this@RangeSeekBarView, currentValue, true)
+
+            }
+        }
+        return true
+    }
+
 
     private class SavedState : BaseSavedState {
         internal var value: Int = 0
