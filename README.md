@@ -159,7 +159,7 @@ See [CHANGELOG](https://github.com/MohammedAlaaMorsi/RangeSeekBar/blob/master/CH
 
   ![](range_seekbar.gif)
   ![](screenshot.png)
-  
+
   ## License
 
     Copyright 2019 Mohammed Alaa
