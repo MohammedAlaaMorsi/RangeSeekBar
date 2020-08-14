@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-  <com.mohammedalaa.seekbar.RangeSeekBarView
+    <com.mohammedalaa.seekbar.RangeSeekBarView
         android:id="@+id/range_seekbar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,29 +39,20 @@
         app:circleTextSize="@dimen/value_bar_circleTextSize"
         app:currentValue="60"
         app:fillColor="@color/red"
-        app:layout_constraintTop_toBottomOf="@id/range_seekbar1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/range_seekbar1"
         app:maxValue="150"
         app:minValue="15"
         app:orientation="RIGHT_TO_LEFT"
         app:stepValue="5" />
 
-
-    <Button
-        app:layout_constraintTop_toBottomOf="@id/range_seekbar2"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="Get Values"
-        android:onClick="getValues"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/range_seekbar3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-   <com.mohammedalaa.seekbar.RangeSeekBarView
+    <com.mohammedalaa.seekbar.RangeSeekBarView
         android:id="@+id/range_seekbar3"
         android:layout_width="wrap_content"
         android:layout_height="400dp"
-       app:barHeight="15dp"
+        app:barHeight="15dp"
+        android:layout_marginTop="16dp"
         app:baseColor="@color/navy"
         app:circleFillColor="@color/green"
         app:circleRadius="15dp"
@@ -69,10 +60,10 @@
         app:circleTextSize="@dimen/value_bar_circleTextSize"
         app:currentValue="60"
         app:fillColor="@color/red"
-       app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/range_seekbar4"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/range_seekbar2"
         app:maxValue="150"
         app:minValue="15"
         app:orientation="TOP_TO_BOTTOM"
@@ -91,14 +82,42 @@
         app:circleTextSize="@dimen/value_bar_circleTextSize"
         app:currentValue="60"
         app:fillColor="@color/red"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/range_seekbar3"
+        app:layout_constraintTop_toTopOf="@id/range_seekbar3"
         app:maxValue="150"
         app:minValue="15"
         app:orientation="BOTTOM_TO_TOP"
         app:stepValue="5" />
 
+    <Button
+        android:id="@+id/btnValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="getValues"
+        android:text="Get Values"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/range_seekbar3" />
 
-
+    <com.mohammedalaa.seekbar.DoubleValueSeekBarView
+        android:id="@+id/range_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnValue"
+        app:r2CurrentMaxValue="140"
+        app:r2CurrentMinValue="30"
+        app:r2barHeight="15dp"
+        app:r2baseColor="@color/navy"
+        app:r2circleFillColor="@color/green"
+        app:r2circleRadius="15dp"
+        app:r2circleTextColor="@color/white"
+        app:r2circleTextSize="@dimen/value_bar_circleTextSize"
+        app:r2fillColor="@color/red"
+        app:r2maxValue="150"
+        app:r2maxValueStep="10"
+        app:r2minValue="15"
+        app:r2minValueStep="5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

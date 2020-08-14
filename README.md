@@ -18,26 +18,27 @@ allprojects {
      
 }
 ```
-
+---
 ### Step 2
 
 Include the library as a local library project or add the dependency in your build.gradle.
 
 ```groovy
 dependencies {
-    implementation 'com.github.Mohammed-Alaa:RangeSeekBar:1.0.4'
+    implementation 'com.github.MohammedAlaaMorsi:RangeSeekBar:1.0.5'
 }
-```	
-
+```
+---
 ### Step 3
 
 Add the following xml to your layout file.
 
+   ## RangeSeekBarView
 ```xml
 <com.mohammedalaa.seekbar.RangeSeekBarView
         android:id="@+id/range_seekbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"     
+        android:layout_height="wrap_content"
         app:barHeight="@dimen/value_bar_barHeight"
         app:baseColor="@color/navy"
         app:circleRadius="@dimen/value_bar_circleRadius"
@@ -47,33 +48,80 @@ Add the following xml to your layout file.
         app:currentValue="60"
         app:minValue="15"
         app:maxValue="150"
-        app:stepValue="5"    
+        app:stepValue="5"
         />
 ```
+  ## DoubleValueSeekBarView
+```xml
+  <com.mohammedalaa.seekbar.DoubleValueSeekBarView
+          android:id="@+id/double_range_seekbar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/btnValue"
+          app:r2CurrentMaxValue="140"
+          app:r2CurrentMinValue="30"
+          app:r2barHeight="15dp"
+          app:r2baseColor="@color/navy"
+          app:r2circleFillColor="@color/green"
+          app:r2circleRadius="15dp"
+          app:r2circleTextColor="@color/white"
+          app:r2circleTextSize="@dimen/value_bar_circleTextSize"
+          app:r2fillColor="@color/red"
+          app:r2maxValue="150"
+          app:r2maxValueStep="10"
+          app:r2minValue="15"
+          app:r2minValueStep="5" />
 
+```
+---
 ### Step 4
 
-Reference the View in Java code.
+Reference the View in Kotlin code.
 
+  ## RangeSeekBarView
 ```kotlin
-       RangeSeekBarView rangeSeekbar = (RangeSeekBarView) findViewById(R.id.range_seekbar);
+val rangeSeekbar = findViewById<RangeSeekBarView>(R.id.range_seekbar)
+```
+  ## DoubleRangeSeekBarView
+```kotlin
+val doubleValueRangeSeekbar = findViewById<DoubleRangeSeekBarView>(R.id.double_range_seekbar)
 ```
 Add Animation.
+
+   ## RangeSeekBarView
 ```kotlin
-       rangeSeekbar.setAnimated(true,3000L);
+rangeSeekbar.setAnimated(true,3000L);
 ```
 
 Set Value
+   ## RangeSeekBarView
 ```kotlin
-     rangeSeekbar.setCurrentValue(50)
+rangeSeekbar.currentValue=50
+```
+
+   ## DoubleRangeSeekBarView
+```kotlin
+doubleValueSeekBarView.currentMinValue=50
+doubleValueSeekBarView.currentMaxValue=140
 ```
 
 Get Value
+
+  ## RangeSeekBarView
 ```kotlin
-       rangeSeekbar.getCurrentValue();
+rangeSeekbar.currentValue
+```
+  ## DoubleRangeSeekBarView
+```kotlin
+doubleValueSeekBarView.currentMinValue
+doubleValueSeekBarView.currentMaxValue
 ```
 
 Add SeekChangeListener
+
+   ## RangeSeekBarView
 ```kotlin
 rangeSeekBarView.setOnRangeSeekBarViewChangeListener(object : OnRangeSeekBarChangeListener {
             override fun onProgressChanged(seekBar: RangeSeekBarView?, progress: Int, fromUser: Boolean) {
@@ -91,7 +139,26 @@ rangeSeekBarView.setOnRangeSeekBarViewChangeListener(object : OnRangeSeekBarChan
         })
 ```
 
+   ## DoubleRangeSeekBarView
+
+```kotlin
+doubleValueSeekBarView.setOnRangeSeekBarViewChangeListener(object : OnDoubleValueSeekBarChangeListener {
+                override fun onValueChanged(seekBar: DoubleValueSeekBarView?, min: Int, max: Int, fromUser: Boolean) {
+                }
+
+                override fun onStartTrackingTouch(seekBar: DoubleValueSeekBarView?, min: Int, max: Int) {
+                }
+
+                override fun onStopTrackingTouch(seekBar: DoubleValueSeekBarView?, min: Int, max: Int) {
+                }
+            })
+```
+---
+### CHANGELOG
+See [CHANGELOG](https://github.com/MohammedAlaaMorsi/RangeSeekBar/blob/master/CHANGELOG.md) for detailed list of changes
+
   ![](range_seekbar.gif)
+  ![](screenshot.png)
   
   ## License
 
@@ -107,4 +174,3 @@ rangeSeekBarView.setOnRangeSeekBarViewChangeListener(object : OnRangeSeekBarChan
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
 	limitations under the License.
-  

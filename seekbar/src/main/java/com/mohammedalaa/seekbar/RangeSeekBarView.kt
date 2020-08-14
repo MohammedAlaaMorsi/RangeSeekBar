@@ -42,7 +42,6 @@ class RangeSeekBarView : View {
     private var barHeight: Int = 0
     private var circleRadius: Int = 0
     private var circleTextSize: Int = 0
-    private var progress: Int = 0
     private var defaultPadding: Int = 15
 
 
@@ -57,9 +56,6 @@ class RangeSeekBarView : View {
     private var animationDuration = 3000L
     private var animation: ValueAnimator? = null
     private var mOnRangeSeekBarViewChangeListener: OnRangeSeekBarChangeListener? = null
-
-    // private val barCenter: Float
-    //   get() = ((height - paddingTop - paddingBottom) / 2).toFloat()
 
 
     var maxValue: Int = DEFAULT_MAX_VALUE
@@ -295,13 +291,10 @@ class RangeSeekBarView : View {
         val barLength = height - paddingTop - paddingBottom.toFloat()
         val barCenter = (width / 2).toFloat()
 
-        // val halfBarHeight = (barHeight).toFloat()//((width) / 2).toFloat()
 
         val halfBarHeight = (barHeight / 2).toFloat()
-        //val top = (height + paddingBottom + paddingTop) / 2 - height / 2.toFloat()
         val top = paddingTop.toFloat()
         val bottom = barLength + paddingTop
-         //val left = width / 2 - (halfBarHeight)
         val left = barCenter-halfBarHeight
         val right = barCenter+halfBarHeight
         val rect = RectF(left, top, right, bottom)
@@ -343,9 +336,6 @@ class RangeSeekBarView : View {
         val halfBarHeight = (barHeight / 2).toFloat()
         val top = barCenter - halfBarHeight
         val bottom = barCenter + halfBarHeight
-
-        //val top = paddingTop.toFloat()
-        //val bottom = paddingTop + halfBarHeight*2
         val left = paddingLeft.toFloat()
         val right = paddingLeft + barLength
         val rect = RectF(left, top, right, bottom)
@@ -424,7 +414,6 @@ class RangeSeekBarView : View {
                 canvasSize = (width - paddingStart - paddingEnd).toDouble()
             }
         }
-        // you may need the x/y location
 
         if (coordinate < 0) {
             coordinate = 0.0

@@ -21,4 +21,22 @@
 
     </declare-styleable>
 
+
+
+    <declare-styleable name="DoubleValueSeekBarView">
+        <attr name="r2minValueStep" format="integer|dimension"/>
+        <attr name="r2maxValueStep" format="integer|dimension"/>
+        <attr name="r2maxValue" format="integer|dimension"/>
+        <attr name="r2minValue" format="integer|dimension"/>
+        <attr name="r2CurrentMaxValue" format="integer|dimension"/>
+        <attr name="r2CurrentMinValue" format="integer|dimension"/>
+        <attr name="r2barHeight" format="dimension" />
+        <attr name="r2circleRadius" format="dimension" />
+        <attr name="r2circleTextSize" format="dimension" />
+        <attr name="r2circleTextColor" format="color" />
+        <attr name="r2baseColor" format="color" />
+        <attr name="r2fillColor" format="color" />
+        <attr name="r2circleFillColor" format="color" />
+    </declare-styleable>
+
 </resources>
