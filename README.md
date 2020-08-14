@@ -39,17 +39,21 @@ Add the following xml to your layout file.
         android:id="@+id/range_seekbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:barHeight="@dimen/value_bar_barHeight"
+        app:barHeight="15dp"
         app:baseColor="@color/navy"
-        app:circleRadius="@dimen/value_bar_circleRadius"
+        app:circleFillColor="@color/green"
+        app:circleRadius="15dp"
         app:circleTextColor="@color/white"
         app:circleTextSize="@dimen/value_bar_circleTextSize"
-        app:fillColor="@color/red"
         app:currentValue="60"
-        app:minValue="15"
+        app:fillColor="@color/red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:maxValue="150"
-        app:stepValue="5"
-        />
+        app:minValue="15"
+        app:orientation="LEFT_TO_RIGHT"
+        app:stepValue="5" />
 ```
   ## DoubleValueSeekBarView
 ```xml
