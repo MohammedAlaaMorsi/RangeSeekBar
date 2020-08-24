@@ -33,9 +33,11 @@ open class DoubleValueSeekBarView : View {
         private const val DEFAULT_CIRCLE_COLOR = Color.GREEN
         private const val DEFAULT_MIN_VALUE = 0
         private const val DEFAULT_MAX_VALUE = 100
+        private const val DEFAULT_MAX_STEP_VALUE = 1
+        private const val DEFAULT_MIN_STEP_VALUE = 1
+
     }
 
-    private var padding: Float = 0f
     private var seekBarTouchEnabled = true
     private var pressedThumb: Thumb? = null
     private var mActivePointerId = INVALID_POINTER_ID
@@ -43,8 +45,7 @@ open class DoubleValueSeekBarView : View {
     private var isDragging = true
     private var minValueToDraw: Int = 0
     private var maxValueToDraw: Int = 100
-    private var minStep = 0
-    private var maxStep = 0
+
 
     private var barHeight: Int = 0
     private var circleRadius: Int = 0
@@ -60,6 +61,20 @@ open class DoubleValueSeekBarView : View {
 
     private var mOnDoubleValueSeekBarViewChangeListener: OnDoubleValueSeekBarChangeListener? = null
 
+
+
+    var minStep: Int = DEFAULT_MIN_STEP_VALUE
+        set(value: Int) {
+            field = value
+            invalidate()
+            requestLayout()
+        }
+    var maxStep: Int = DEFAULT_MAX_STEP_VALUE
+        set(value: Int) {
+            field = value
+            invalidate()
+            requestLayout()
+        }
     var maxValue: Int = DEFAULT_MAX_VALUE
         set(value: Int) {
             field = value

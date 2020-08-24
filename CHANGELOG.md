@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Next Release]
 - Nothing so far
 
+## 1.0.6 - 2020-8-24
+### Fixed
+- set step value from code  ([Issue](https://github.com/MohammedAlaaMorsi/RangeSeekBar/issues/10))
+
 ## 1.0.5 - 2020-08-15
 - Updated library to extend form View class instead of SeekBar
 - Add different orientation to RangeSeekBarView library

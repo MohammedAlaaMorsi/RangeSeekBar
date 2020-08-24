@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        rangeSeekBarView1 = findViewById<RangeSeekBarView>(R.id.range_seekbar1)
+        rangeSeekBarView1 = findViewById(R.id.range_seekbar1)
         rangeSeekBarView2 = findViewById(R.id.range_seekbar2)
         rangeSeekBarView3 = findViewById(R.id.range_seekbar3)
         rangeSeekBarView4 = findViewById(R.id.range_seekbar4)
@@ -33,13 +33,23 @@ class MainActivity : AppCompatActivity() {
 
 
         rangeSeekBarView1.currentValue=20
+        rangeSeekBarView1.step=5
+
         rangeSeekBarView2.currentValue=30
+        rangeSeekBarView2.step=10
+
         rangeSeekBarView3.currentValue=40
+        rangeSeekBarView3.step=15
+
         rangeSeekBarView4.currentValue=50
+        rangeSeekBarView4.step=15
+
 
         doubleValueSeekBarView.currentMinValue=50
-        doubleValueSeekBarView.currentMaxValue=140
+        doubleValueSeekBarView.minStep=10
 
+        doubleValueSeekBarView.currentMaxValue=140
+        doubleValueSeekBarView.maxStep=20
 
         rangeSeekBarView1.setAnimated(true, 3000L)
         rangeSeekBarView2.setAnimated(true, 3000L)

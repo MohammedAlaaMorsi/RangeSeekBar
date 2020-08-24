@@ -31,13 +31,14 @@ class RangeSeekBarView : View {
         private const val DEFAULT_TEXT_COLOR = Color.DKGRAY
         private const val DEFAULT_CIRCLE_COLOR = Color.GREEN
         private const val DEFAULT_VALUE = 0
+        private const val DEFAULT_STEP_VALUE = 0
         private const val DEFAULT_MAX_VALUE = 100
+        private const val DEFAULT_MIN_VALUE = 0
+
     }
 
-
-    private var minValue: Int = 0
     private var valueToDraw: Float = 0f
-    private var step = 0
+
 
     private var barHeight: Int = 0
     private var circleRadius: Int = 0
@@ -57,8 +58,20 @@ class RangeSeekBarView : View {
     private var animation: ValueAnimator? = null
     private var mOnRangeSeekBarViewChangeListener: OnRangeSeekBarChangeListener? = null
 
-
+    var step : Int = DEFAULT_STEP_VALUE
+        set(value) {
+            field = value
+            invalidate()
+            requestLayout()
+        }
     var maxValue: Int = DEFAULT_MAX_VALUE
+        set(value: Int) {
+            field = value
+            invalidate()
+            requestLayout()
+        }
+
+    var minValue: Int = DEFAULT_MIN_VALUE
         set(value: Int) {
             field = value
             invalidate()
@@ -90,6 +103,8 @@ class RangeSeekBarView : View {
             invalidate()
         }
 
+
+
     private var isTouchListenerEnabled = true
 
 
@@ -101,6 +116,7 @@ class RangeSeekBarView : View {
 
             if (newValue < minValue || newValue > maxValue) {
                 newValue = currentValue
+                field = newValue
             }
             if (newValue % step == 0) {
                 field = newValue
@@ -233,13 +249,6 @@ class RangeSeekBarView : View {
     private fun calculateProgress(value: Int, MIN: Int, MAX: Int): Int {
         return 100 * (value - MIN) / (MAX - MIN)
     }
-
-    fun setMinValue(value: Int) {
-        minValue = value
-        invalidate()
-        requestLayout()
-    }
-
 
     fun setAnimated(animated: Boolean, animationDuration: Long) {
         this.animated = animated
