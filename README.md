@@ -39,17 +39,21 @@ Add the following xml to your layout file.
         android:id="@+id/range_seekbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:barHeight="@dimen/value_bar_barHeight"
+        app:barHeight="15dp"
         app:baseColor="@color/navy"
-        app:circleRadius="@dimen/value_bar_circleRadius"
+        app:circleFillColor="@color/green"
+        app:circleRadius="15dp"
         app:circleTextColor="@color/white"
         app:circleTextSize="@dimen/value_bar_circleTextSize"
-        app:fillColor="@color/red"
         app:currentValue="60"
-        app:minValue="15"
+        app:fillColor="@color/red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:maxValue="150"
-        app:stepValue="5"
-        />
+        app:minValue="15"
+        app:orientation="LEFT_TO_RIGHT"
+        app:stepValue="5" />
 ```
   ## DoubleValueSeekBarView
 ```xml
@@ -59,7 +63,6 @@ Add the following xml to your layout file.
           android:layout_height="wrap_content"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/btnValue"
           app:r2CurrentMaxValue="140"
           app:r2CurrentMinValue="30"
           app:r2barHeight="15dp"
@@ -81,12 +84,22 @@ Add the following xml to your layout file.
 Reference the View in Kotlin code.
 
   ## RangeSeekBarView
+* Kotlin
 ```kotlin
 val rangeSeekbar = findViewById<RangeSeekBarView>(R.id.range_seekbar)
 ```
-  ## DoubleRangeSeekBarView
+* Java
+```Java
+RangeSeekBarView rangeSeekbar=findViewById(R.id.range_seekbar);
+```
+  ## DoubleValueSeekBarView
+* Kotlin
 ```kotlin
 val doubleValueRangeSeekbar = findViewById<DoubleRangeSeekBarView>(R.id.double_range_seekbar)
+```
+* Java
+```Java
+DoubleRangeSeekBarView doubleValueRangeSeekbar = findViewById(R.id.double_range_seekbar)
 ```
 Add Animation.
 
@@ -97,31 +110,51 @@ rangeSeekbar.setAnimated(true,3000L);
 
 Set Value
    ## RangeSeekBarView
+* Kotlin
 ```kotlin
 rangeSeekbar.currentValue=50
 ```
-
-   ## DoubleRangeSeekBarView
+* Java
+```Java
+rangeSeekbar.setCurrentValue(50)
+```
+   ## DoubleValueSeekBarView
+* Kotlin
 ```kotlin
 doubleValueSeekBarView.currentMinValue=50
 doubleValueSeekBarView.currentMaxValue=140
 ```
-
+* Java
+```Java
+doubleValueSeekBarView.setCurrentMinValue(50)
+doubleValueSeekBarView.setCurrentMaxValue(140)
+```
 Get Value
 
   ## RangeSeekBarView
+* Kotlin
 ```kotlin
 rangeSeekbar.currentValue
 ```
-  ## DoubleRangeSeekBarView
+* Java
+```Java
+rangeSeekbar.getCurrentValue()
+```
+  ## DoubleValueSeekBarView
+* Kotlin
 ```kotlin
 doubleValueSeekBarView.currentMinValue
 doubleValueSeekBarView.currentMaxValue
 ```
-
+* Java
+```Java
+doubleValueSeekBarView.getCurrentMinValue()
+doubleValueSeekBarView.getCurrentMaxValue()
+```
 Add SeekChangeListener
 
    ## RangeSeekBarView
+* Kotlin
 ```kotlin
 rangeSeekBarView.setOnRangeSeekBarViewChangeListener(object : OnRangeSeekBarChangeListener {
             override fun onProgressChanged(seekBar: RangeSeekBarView?, progress: Int, fromUser: Boolean) {
@@ -138,9 +171,27 @@ rangeSeekBarView.setOnRangeSeekBarViewChangeListener(object : OnRangeSeekBarChan
 
         })
 ```
+* Java
+```Java
+rangeSeekBarView.setOnRangeSeekBarViewChangeListener(new OnRangeSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(@Nullable RangeSeekBarView seekBar, int progress, boolean fromUser) {
 
-   ## DoubleRangeSeekBarView
+            }
 
+            @Override
+            public void onStartTrackingTouch(@Nullable RangeSeekBarView seekBar, int progress) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(@Nullable RangeSeekBarView seekBar, int progress) {
+
+            }
+        });
+```
+   ## DoubleValueSeekBarView
+* Kotlin
 ```kotlin
 doubleValueSeekBarView.setOnRangeSeekBarViewChangeListener(object : OnDoubleValueSeekBarChangeListener {
                 override fun onValueChanged(seekBar: DoubleValueSeekBarView?, min: Int, max: Int, fromUser: Boolean) {
@@ -153,6 +204,26 @@ doubleValueSeekBarView.setOnRangeSeekBarViewChangeListener(object : OnDoubleValu
                 }
             })
 ```
+* Java
+```Java
+doubleValueSeekBarView.setOnRangeSeekBarViewChangeListener(new OnDoubleValueSeekBarChangeListener() {
+            @Override
+            public void onValueChanged(@Nullable DoubleValueSeekBarView seekBar, int min, int max, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(@Nullable DoubleValueSeekBarView seekBar, int min, int max) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(@Nullable DoubleValueSeekBarView seekBar, int min, int max) {
+
+            }
+        });
+```
+
 ---
 ### CHANGELOG
 See [CHANGELOG](https://github.com/MohammedAlaaMorsi/RangeSeekBar/blob/master/CHANGELOG.md) for detailed list of changes
