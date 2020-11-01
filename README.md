@@ -228,8 +228,8 @@ doubleValueSeekBarView.setOnRangeSeekBarViewChangeListener(new OnDoubleValueSeek
 See [CHANGELOG](https://github.com/MohammedAlaaMorsi/RangeSeekBar/blob/master/CHANGELOG.md) for detailed list of changes
 
 <p float="left">
-<img src="range_seekbar.gif" height="450">
-<img src="screenshot.png" height="450">
+<img src="range_seekbar.gif" height="650">
+<img src="screenshot.png" height="650">
 </p>
 
   ## License
