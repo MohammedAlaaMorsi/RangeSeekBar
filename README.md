@@ -3,6 +3,13 @@ Android Range Seekbar library
 [![](https://jitpack.io/v/MohammedAlaaMorsi/RangeSeekBar.svg)](https://jitpack.io/#Mohammed-Alaa/RangeSeekBar)
 [![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)  
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-RangeSeekBar-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7527)
+
+
+<p float="left">
+<img src="range_seekbar.gif" height="620" width="320">
+<img src="screenshot.png" height="620" width="320">
+</p>
+
 ## Usage
 
 **For a working implementation of this project see the `app/` folder.**
@@ -12,10 +19,10 @@ Android Range Seekbar library
 Add this in your root build.gradle at the end of repositories
 ```groovy
 allprojects {
-		repositories {
-			maven { url 'https://jitpack.io' }
-		}
-     
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }     
+  }
 }
 ```
 ---
@@ -227,9 +234,6 @@ doubleValueSeekBarView.setOnRangeSeekBarViewChangeListener(new OnDoubleValueSeek
 ---
 ### CHANGELOG
 See [CHANGELOG](https://github.com/MohammedAlaaMorsi/RangeSeekBar/blob/master/CHANGELOG.md) for detailed list of changes
-
-  ![](range_seekbar.gif)
-  ![](screenshot.png)
 
   ## License
 
