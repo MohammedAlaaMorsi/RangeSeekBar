@@ -12,10 +12,9 @@ Android Range Seekbar library
 Add this in your root build.gradle at the end of repositories
 ```groovy
 allprojects {
-		repositories {
-			maven { url 'https://jitpack.io' }
-		}
-     
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }     
 }
 ```
 ---
@@ -228,8 +227,10 @@ doubleValueSeekBarView.setOnRangeSeekBarViewChangeListener(new OnDoubleValueSeek
 ### CHANGELOG
 See [CHANGELOG](https://github.com/MohammedAlaaMorsi/RangeSeekBar/blob/master/CHANGELOG.md) for detailed list of changes
 
-  ![](range_seekbar.gif)
-  ![](screenshot.png)
+<p float="left">
+<img src="range_seekbar.gif" height="650">
+<img src="screenshot.png" height="650">
+</p>
 
   ## License
 
