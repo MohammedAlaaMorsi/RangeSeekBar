@@ -139,15 +139,12 @@ class RangeSeekBarView : View {
 
                 animation?.addUpdateListener { valueAnimator ->
                     valueToDraw = valueAnimator.animatedValue as Float
-                    mOnRangeSeekBarViewChangeListener?.onProgressChanged(this@RangeSeekBarView, valueToDraw.toInt(), true)
                     this.invalidate()
                 }
 
                 animation!!.start()
             } else {
                 valueToDraw = currentValue.toFloat()
-                mOnRangeSeekBarViewChangeListener?.onProgressChanged(this@RangeSeekBarView, valueToDraw.toInt(), true);
-
             }
             invalidate()
 
